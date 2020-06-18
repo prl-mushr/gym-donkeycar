@@ -2,7 +2,8 @@
 file: donkey_sim.py
 author: Tawn Kramer
 date: 2018-08-31
-NOTE: client.py in core has a a poll sleep time that is way too large by default, so reduce it to 0.01seconds
+edited by: Sidharth Talia (UW, MUSHR project remote intern)
+date: 2020-06-18
 '''
 
 import time
