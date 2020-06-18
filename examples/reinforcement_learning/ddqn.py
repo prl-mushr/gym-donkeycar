@@ -33,7 +33,7 @@ from tensorflow.keras import backend as K
 
 import gym_donkeycar
 
-EPISODES = 10000
+EPISODES = 1000
 img_rows, img_cols = 80, 80
 # Convert image into Black and white
 img_channels = 4 # We stack 4 frames
@@ -54,12 +54,12 @@ class DQNAgent:
         self.discount_factor = 0.99
         self.learning_rate = 1e-4
         if (self.train):
-            self.epsilon = 1.0
-            self.initial_epsilon = 1.0
+            self.epsilon = 0.02
+            self.initial_epsilon = 0.02
         else:
             self.epsilon = 1e-6
             self.initial_epsilon = 1e-6
-        self.epsilon_min = 0.02
+        self.epsilon_min = 0.001
         self.batch_size = 64
         self.train_start = 100
         self.explore = 10000
@@ -320,7 +320,6 @@ if __name__ == "__main__":
        "donkey-generated-roads-v0",
        "donkey-avc-sparkfun-v0",
        "donkey-generated-track-v0"
-       "donkey-mountain-track-v0"
     ]
 
     parser = argparse.ArgumentParser(description='ddqn')
@@ -329,7 +328,7 @@ if __name__ == "__main__":
     parser.add_argument('--test', action="store_true", help='agent uses learned model to navigate env')
     parser.add_argument('--port', type=int, default=9091, help='port to use for websockets')
     parser.add_argument('--throttle', type=float, default=0.3, help='constant throttle for driving')
-    parser.add_argument('--env_name', type=str, default='donkey-generated-track-v0', help='name of donkey sim environment', choices=env_list)
+    parser.add_argument('--env_name', type=str, default='donkey-generated-roads-v0', help='name of donkey sim environment', choices=env_list)
 
     args = parser.parse_args()
 
