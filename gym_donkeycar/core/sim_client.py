@@ -26,6 +26,7 @@ class SimClient(SDClient):
 
         # we connect right away
         msg_handler.on_connect(self)
+        self.now = time.time()
 
     def queue_message(self, msg):
         # takes a dict input msg, converts to json string
