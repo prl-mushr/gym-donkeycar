@@ -20,7 +20,7 @@ from .util import replace_float_notation
 
 
 class SDClient:
-    def __init__(self, host, port, poll_socket_sleep_time=0.05):
+    def __init__(self, host, port, poll_socket_sleep_time=0.0):
         self.msg = None
         self.host = host
         self.port = port
