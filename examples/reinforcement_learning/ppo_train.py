@@ -41,8 +41,7 @@ if __name__ == "__main__":
        "donkey-warehouse-v0",
        "donkey-generated-roads-v0",
        "donkey-avc-sparkfun-v0",
-       "donkey-generated-track-v0",
-       "donkey-mountain-track-v0"
+       "donkey-generated-track-v0"
     ]
 	
     parser = argparse.ArgumentParser(description='ppo_train')
@@ -50,7 +49,7 @@ if __name__ == "__main__":
     parser.add_argument('--port', type=int, default=9091, help='port to use for tcp')
     parser.add_argument('--test', action="store_true", help='load the trained model and play')
     parser.add_argument('--multi', action="store_true", help='start multiple sims at once')
-    parser.add_argument('--env_name', type=str, default='donkey-generated-track-v0', help='name of donkey sim environment', choices=env_list)
+    parser.add_argument('--env_name', type=str, default='donkey-generated-roads-v0', help='name of donkey sim environment', choices=env_list)
     
     args = parser.parse_args()
 
@@ -105,7 +104,9 @@ if __name__ == "__main__":
 
 
         #set up model in learning mode with goal number of timesteps to complete
-        model.learn(total_timesteps=10000)
+        model.load("ppo_donkey")
+        print("model loaded")
+        model.learn(total_timesteps=50000)
 
         obs = env.reset()
         
