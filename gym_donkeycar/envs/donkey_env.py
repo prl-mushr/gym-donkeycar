@@ -1,7 +1,10 @@
 '''
 file: donkey_env.py
-author: Tawn Kramer
+original author: Tawn Kramer
 date: 2018-08-31
+
+edited by: Sidharth Talia (UW, MUSHR project remote intern)
+date: 2020-06-18
 '''
 import os
 import random
@@ -31,10 +34,9 @@ class DonkeyEnv(gym.Env):
     THROTTLE_MAX = 5.0
     VAL_PER_PIXEL = 255
 
-    def __init__(self, level=0, exe_path="self_start", host='127.0.0.1', port=9091, frame_skip=2, start_delay=5.0, cam_resolution=(120,160,3)):
+    def __init__(self, level=0, exe_path="self_start", host='127.0.0.1', port=9091, frame_skip=2, start_delay=5.0):
+
         print("starting DonkeyGym env")
-        self.viewer = None
-        self.proc = None
 
         # start Unity simulation subprocess
         self.proc = DonkeyUnityProcess()
@@ -46,7 +48,7 @@ class DonkeyEnv(gym.Env):
         time.sleep(start_delay)
 
         # start simulation com
-        self.viewer = DonkeyUnitySimContoller(level=level, host=host, port=port, cam_resolution=cam_resolution)
+        self.viewer = DonkeyUnitySimContoller(level=level, host=host, port=port)
 
         # steering and throttle
         self.action_space = spaces.Box(low=np.array([self.STEER_LIMIT_LEFT, self.THROTTLE_MIN]),
@@ -73,16 +75,8 @@ class DonkeyEnv(gym.Env):
         self.close()
 
     def close(self):
-        if self.viewer is not None:
-            self.viewer.quit()
-        if self.proc is not None:
-            self.proc.quit()
-
-    def set_reward_fn(self, reward_fn):
-        self.viewer.set_reward_fn(reward_fn)
-
-    def set_episode_over_fn(self, ep_over_fn):
-        self.viewer.set_episode_over_fn(ep_over_fn)
+        self.viewer.quit()
+        self.proc.quit()
 
     def seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
@@ -134,9 +128,3 @@ class GeneratedTrackEnv(DonkeyEnv):
 
     def __init__(self, *args, **kwargs):
         super(GeneratedTrackEnv, self).__init__(level=3, *args, **kwargs)
-
-
-class MountainTrackEnv(DonkeyEnv):
-
-    def __init__(self, *args, **kwargs):
-        super(MountainTrackEnv, self).__init__(level=4, *args, **kwargs)
