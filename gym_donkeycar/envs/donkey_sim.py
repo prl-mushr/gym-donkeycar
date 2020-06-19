@@ -117,7 +117,7 @@ class DonkeyUnitySimHandler(IMesgHandler):
         if msg_type in self.fns:
             self.fns[msg_type](message)
         else:
-            logger.warning(f'unknown message type {msg_type}')
+            logger.warning("unknown message type {}".format(str(msg_type)))
 
     ## ------- Env interface ---------- ##
 
@@ -235,10 +235,10 @@ class DonkeyUnitySimHandler(IMesgHandler):
         if math.fabs(self.cte) > 2 * self.max_cte:
             pass
         elif math.fabs(self.cte) > self.max_cte:
-            logger.debug(f"game over: cte {self.cte}")
+            logger.debug("game over: cte {}".format(str(self.cte)))
             self.over = True
         elif self.hit != "none":
-            logger.debug(f"game over: hit {self.hit}")
+            logger.debug("game over: hit {}".format(str(self.hit)))
             self.over = True
 
     def on_scene_selection_ready(self, data):
@@ -252,7 +252,7 @@ class DonkeyUnitySimHandler(IMesgHandler):
     def on_recv_scene_names(self, data):
         if data:
             names = data['scene_names']
-            logger.debug(f"SceneNames: {names}")
+            logger.debug("SceneNames: {}".format(str(names)))
             self.send_load_scene(names[self.iSceneToLoad])
 
     def send_control(self, steer, throttle):
@@ -289,8 +289,8 @@ class DonkeyUnitySimHandler(IMesgHandler):
 
     def queue_message(self, msg):
         if self.client is None:
-            logger.debug(f'skiping: \n {msg}')
+            logger.debug("skiping: \n {}".format(str(msg)))
             return
 
-        logger.debug(f'sending \n {msg}')
+        logger.debug("sending \n {}".format(str(msg)))
         self.client.queue_message(msg)
