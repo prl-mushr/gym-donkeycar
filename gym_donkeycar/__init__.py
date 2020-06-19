@@ -7,7 +7,7 @@ __email__ = 'tawnkramer@gmail.com'
 __version__ = '1.0.14'
 
 from gym.envs.registration import register
-from .envs.donkey_env import GeneratedRoadsEnv, WarehouseEnv, AvcSparkfunEnv, GeneratedTrackEnv, MountainTrackEnv
+from .envs.donkey_env import GeneratedRoadsEnv, WarehouseEnv, AvcSparkfunEnv, GeneratedTrackEnv
 
 register(
     id='donkey-generated-roads-v0',
@@ -29,7 +29,3 @@ register(
     entry_point='gym_donkeycar.envs.donkey_env:GeneratedTrackEnv',
 )
 
-register(
-    id='donkey-mountain-track-v0',
-    entry_point='gym_donkeycar.envs.donkey_env:MountainTrackEnv',
-)
